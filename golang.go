@@ -1,32 +1,35 @@
 package main
+
 import "fmt"
 
-const START_NUM int = 2
-
-func main(){
+func main() {
 	var num int
 	fmt.Scan(&num)
-	Eratosthenes(num)
+	list := Eratosthenes(num)
+
+	for i, v := range list {
+		if v {
+			fmt.Println(i)
+		}
+	}
 }
 
-func Eratosthenes(n int) {
-	var numberes_bool = make([]bool, n)
+func Eratosthenes(n int) []bool {
+	numberes_bool := make([]bool, n)
 	numberes_bool[0] = false
 	numberes_bool[1] = false
-	for i := START_NUM; i < len(numberes_bool); i++{
-		numberes_bool[i] = true;
+
+	for i := 2; i < n; i++ {
+		numberes_bool[i] = true
 	}
-	for i := START_NUM; i < len(numberes_bool); i++{
+
+	for i := 2; i < n; i++ {
 		if numberes_bool[i] {
-			for j := i*2; j < len(numberes_bool); j += i{
+			for j := i * 2; j < n; j += i {
 				numberes_bool[j] = false
 			}
 		}
 	}
 
-	for i := 0; i < len(numberes_bool); i++{
-		if numberes_bool[i]{
-			fmt.Println(i)
-		}
-	}
+	return numberes_bool
 }
